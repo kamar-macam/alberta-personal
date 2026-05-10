@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Alberta | Content Creator</title>
     <link rel="stylesheet" href="./css/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
-    <!-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.11/dist/cdn.min.js"></script> -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.11/dist/cdn.min.js"></script>
   </head>
   <body x-data="{ brand_name: 'Alberta', get date() { return new Date().getFullYear() }}">
     <main x-data="{ current: 'home', nav: [ { id: 1, section: 'home' }, { id: 2, section: 'about'}, { id: 3, section: 'projects' }, { id: 4, section: 'contact'} ], changeCurrent(e) { this.current = e } }" >
@@ -24,7 +24,7 @@
 	<!-- for desktop -->
 	<nav id="desktop" x-data>
 	  <template x-for="na in nav" :key="na.id">
-	      <a class="nav-links" href="#" x-text="na.section" @click="changeCurrent(na.section)"></a>
+	    <a class="nav-links" href="#" x-text="na.section" @click="changeCurrent(na.section)"></a>
 	  </template>
 	</nav>
 	<ul id="ham" @click="toggleNav" :class="isNav ? 'active' : ''">
@@ -34,9 +34,10 @@
 	</ul>
       </header>
       <section id="home" x-show="current == 'home'">
-	<h3>Home</h3>
-	<p><!--lorem-->Iaculis id, diam. Morbi viverra neque sit amet risus. Nunc pellentesque aliquam orci. Proin neque elit, mollis vel, tristique nec, varius consectetuer, lorem. Nam malesuada ornare nunc. Duis turpis turpis, fermentum a, aliquet quis, sodales at, dolor. Duis eget velit eget risus fringilla hendrerit. Nulla facilisi. Mauris turpis pede, aliquet ac, mattis sed, consequat in, massa. Cum sociis natoque penatibus et magnis dis parturient montes.<!--/lorem--></p>
+	<img src="./img/sorin-basangeac.jpg" alt="Profile" id="profile"/>
+	<h3>Alberta</h3>
 	<p><!--lorem-->Posuere lectus vitae nibh. Etiam tortor orci, sagittis malesuada, rhoncus quis, hendrerit eget, libero. Quisque commodo nulla at nunc. Mauris consequat, enim vitae venenatis sollicitudin, dolor orci bibendum enim, a sagittis nulla nunc quis elit. Phasellus augue. Nunc suscipit, magna tincidunt lacinia faucibus, lacus tellus ornare purus, a pulvinar lacus orci eget nibh. Maecenas sed nibh non lacus tempor faucibus. In hac habitasse platea dictumst.<!--/lorem--></p>
+	<a @click="changeCurrent('about')" href="#">More about me..</a>
       </section>
       <section id="about" x-show="current == 'about'">
 	<h3>'Bout me</h3>
@@ -44,16 +45,23 @@
 	<p><!--lorem-->Metus ligula sed justo. Suspendisse potenti. Donec sodales elementum turpis. Duis dolor elit, dapibus sed, placerat vitae, auctor sit amet, nunc. Donec nisl quam, hendrerit vitae, porttitor et, imperdiet id, quam. Quisque dolor. Nulla tincidunt, lacus id dapibus ullamcorper, turpis diam fringilla eros, quis aliquet dolor felis at lorem.<!--/lorem--></p>
 	<p><!--lorem-->In sapien molestie rhoncus. Pellentesque nisl. Praesent venenatis blandit velit. Fusce rutrum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque vitae erat. Vivamus porttitor cursus lacus. Pellentesque tellus. Nunc aliquam interdum felis. Nulla imperdiet leo. Mauris hendrerit, sem at mollis pharetra, leo sapien pretium elit, a faucibus sapien dolor vel pede. Vestibulum et enim ut nulla sollicitudin adipiscing. Suspendisse malesuada.<!--/lorem--></p>
       </section>
-      <section x-data="{ project_current : 'project-1', projects: [ {id : 1, name: 'project-1'},{ id: 2, name: 'project-2'} ], changeProjectCurrent(e){ this.project_current = e} }"  x-show="current == 'projects'" id="projects" >
-	<div id="projects-nav">
+      <section x-data="{ project_main: 'projects-nav', project_current : 'project-1', projects: [ {id : 1, name: 'project-1'},{ id: 2, name: 'project-2'} ], detailProject(e){ this.project_main = e }, changeProjectCurrent(e){ this.project_current = e} }"  x-show="current == 'projects'" id="projects" >
+	<div id="projects-nav" x-show="project_main == 'projects-nav'">
 	  <template x-for="project in projects" :key="project.id">
 	    <a href="#" @click="changeProjectCurrent(project.name)" >Project <span x-text="project.id"></span> </a>
 	  </template>
 	</div>
+
+	<div id="projects-project-1" x-show="project_main == 'projects-project-1'">
+	  <p>Project 1 detail...</p>
+	    <a href="#" class="project-link" @click="detailProject('projects-nav')">Back</a>
+	</div>
+
 	<div x-data id="projects-show">
 	  <div x-show="project_current == 'project-1'">
 	    <p><!--lorem-->Bibendum.<!--/lorem--></p>
 	    <p><!--lorem-->Vivamus lorem. Sed turpis enim, faucibus quis, pharetra in, sagittis sed, magna. Curabitur ultricies felis ut libero. Nullam tincidunt enim eu nibh. Nunc eget ipsum in sem facilisis convallis. Proin fermentum risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum hendrerit malesuada odio.<!--/lorem--></p>
+	    <a href="#" class="project-link" @click="detailProject('projects-project-1')">More detail...</a>
 	  </div>
 	  <div x-show="project_current == 'project-2'">
 	    <p><!--lorem-->Nibh. Nunc mi tortor, tristique sit amet, rhoncus porta, malesuada elementum.<!--/lorem--></p>
@@ -64,6 +72,7 @@
       <section id="contact" x-show="current == 'contact'">
 	<div>
 	  <h3>Contact</h3>
+	  <img src="./img/aleksey-rusov.jpg" alt="Flower"/>
 	</div>
 	<form action="" method="post" accept-charset="utf-8">
 	  <div class="form-control">
@@ -84,10 +93,8 @@
 	</form>
       </section>
       <footer>
-	&copy; <span x-text="date" class="date"></span> <span x-text="brand_name" class="brand-name"></span>. All rights reversed.
+      &copy; <span x-text="date" class="date"></span> <span x-text="brand_name" class="brand-name"></span>. All rights reversed.
       </footer>
     </main>
-    <script type="module" src="./js/app.js" charset="utf-8">
-    </script>
   </body>
 </html>

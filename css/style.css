@@ -1,11 +1,11 @@
 :root {
   /* bootstrap color pallate scheme reference */
-  --primary: #FB5607;
-  --secondary: #E5E5E5;
-  --success: #CCFF33;
+  --primary: #202C16;
+  --secondary: #CCC8AF;
+  --success: #5D6F3F;
   --danger: #c1121f;
-  --warning: #ffb703;
-  --info: #3A86FF;
+  --warning: #EEAD19;
+  --info: #869BC8;
   --light: #fefefe ;
   --dark: #1d1d1d;
 }
@@ -37,13 +37,10 @@ body {
 .nav-links {
   font-family: 'Gilmer-Bold', sans-serif;
 
-  color: var(--secondary);
+  color: var(--warning);
 }
 .nav-links:hover {
   color: var(--danger);
-}
-.nav-links:visited {
-  color: var(--success);
 }
 
 a {
@@ -57,6 +54,8 @@ main {
   justify-content: center;
 
   position: relative;
+
+  background-color: var(--info);
 
   width: 100vw;
   height: 100vh;
@@ -91,6 +90,8 @@ header {
   z-index: 97;
 }
 #brand-wrapper span.brand-name {
+  color: var(--light);
+
   z-index: 97;
 }
 .brand-name {
@@ -192,11 +193,30 @@ section {
   width: 100vw;
   height: fit-content;
 
-  padding: 1.5rem;
+  padding: 3.5rem;
 
   text-align: justify;
 
   z-index: 96;
+}
+
+#home > a {
+  background-color: var(--success);
+  color: var(--light);
+
+  padding: 1rem;
+  margin-top: 1rem;
+
+  border-radius: 10px;
+}
+#home > a:hover {
+  background-color: var(--danger);
+}
+
+#profile {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
 }
 
 #projects {
@@ -234,6 +254,10 @@ section {
   height: 100%;
 
   padding: 2rem;
+  padding-top: 5rem;
+  background-image: url('../img/aleksey-rusov.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #contact > div {
@@ -246,6 +270,18 @@ section {
   height: fit-content;
 }
 
+#contact > div:first-child {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+}
+#contact > div:first-child img {
+  display: none;
+}
+
+
 #contact form {
   display: flex;
   flex-direction: column;
@@ -256,7 +292,7 @@ section {
   width: 100%;
   height: fit-content;
 
-  background-color: var(--success);
+  background-color: var(--info);
   padding: 2rem;
 
   border-radius: 10px;
@@ -386,6 +422,18 @@ footer {
   }
 }
 
+@media screen and (min-width: 768px) {
+  #contact > div:first-child {
+    align-items: flex-start;
+  }
+  #contact > div:first-child img {
+    display: flex;
+    width: 100%;
+    height: fit-content;
+
+    border-radius: 10px;
+  }
+}
 @font-face {
   font-family: 'ITC-Blair-Bold';
   src: url('../font/ITC-Blair-Bold.otf') format('opentype');
