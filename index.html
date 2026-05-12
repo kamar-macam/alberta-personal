@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width" />
     <title>Alberta | Content Creator</title>
     <link rel="stylesheet" href="./css/style.css" type="text/css" media="screen" title="no title" charset="utf-8">
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.11/dist/cdn.min.js"></script>
+    <!-- <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.15.11/dist/cdn.min.js"></script> -->
   </head>
   <body x-data="{ brand_name: 'Alberta', get date() { return new Date().getFullYear() }}">
     <main x-data="{ current: 'home', nav: [ { id: 1, section: 'home' }, { id: 2, section: 'about'}, { id: 3, section: 'projects' }, { id: 4, section: 'contact'} ], changeCurrent(e) { this.current = e } }" >
@@ -46,26 +46,34 @@
 	<p><!--lorem-->In sapien molestie rhoncus. Pellentesque nisl. Praesent venenatis blandit velit. Fusce rutrum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Pellentesque vitae erat. Vivamus porttitor cursus lacus. Pellentesque tellus. Nunc aliquam interdum felis. Nulla imperdiet leo. Mauris hendrerit, sem at mollis pharetra, leo sapien pretium elit, a faucibus sapien dolor vel pede. Vestibulum et enim ut nulla sollicitudin adipiscing. Suspendisse malesuada.<!--/lorem--></p>
       </section>
       <section x-data="{ project_main: 'projects-nav', project_current : 'project-1', projects: [ {id : 1, name: 'project-1'},{ id: 2, name: 'project-2'} ], detailProject(e){ this.project_main = e }, changeProjectCurrent(e){ this.project_current = e} }"  x-show="current == 'projects'" id="projects" >
-	<div id="projects-nav" x-show="project_main == 'projects-nav'">
-	  <template x-for="project in projects" :key="project.id">
-	    <a href="#" @click="changeProjectCurrent(project.name)" >Project <span x-text="project.id"></span> </a>
-	  </template>
+	<div x-data id="projects-main" >
+	  <div x-show="project_main == 'projects-nav'" id="project-nav">
+	    <template x-for="project in projects" :key="project.id">
+	      <a href="#" @click="changeProjectCurrent(project.name)" >Project <span x-text="project.id"></span> </a>
+	    </template>
+	  </div>
+	  <div id="projects-project-1" x-show="project_main == 'projects-project-1'" class="project-detail">
+	    <p>Project 1 detail...</p>
+	    <a href="#" class="project-link" @click="detailProject('projects-nav')">Back</a>
+	  </div>
+	  <div id="projects-project-2" x-show="project_main == 'projects-project-2'" class="project-detail">
+	    <h3><!--lorem-->Duis aliquam libero non diam. Vestibulum placerat tincidunt.<!--/lorem--></h3>
+	    <p>Project 2 <!--lorem-->Augue vitae nunc tristique vehicula. Suspendisse.<!--/lorem--></p>
+	    <a href="#" class="project-link" @click="detailProject('projects-nav')">Back</a>
+	  </div>
 	</div>
 
-	<div id="projects-project-1" x-show="project_main == 'projects-project-1'">
-	  <p>Project 1 detail...</p>
-	    <a href="#" class="project-link" @click="detailProject('projects-nav')">Back</a>
-	</div>
 
 	<div x-data id="projects-show">
-	  <div x-show="project_current == 'project-1'">
+	  <div x-show="project_current == 'project-1'" class="project-show">
 	    <p><!--lorem-->Bibendum.<!--/lorem--></p>
 	    <p><!--lorem-->Vivamus lorem. Sed turpis enim, faucibus quis, pharetra in, sagittis sed, magna. Curabitur ultricies felis ut libero. Nullam tincidunt enim eu nibh. Nunc eget ipsum in sem facilisis convallis. Proin fermentum risus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Vestibulum hendrerit malesuada odio.<!--/lorem--></p>
 	    <a href="#" class="project-link" @click="detailProject('projects-project-1')">More detail...</a>
 	  </div>
-	  <div x-show="project_current == 'project-2'">
+	  <div x-show="project_current == 'project-2'" class="project-show">
 	    <p><!--lorem-->Nibh. Nunc mi tortor, tristique sit amet, rhoncus porta, malesuada elementum.<!--/lorem--></p>
 	    <p><!--lorem-->Augue non turpis. Suspendisse mattis metus et justo. Aliquam erat volutpat. Suspendisse potenti. Nam hendrerit lorem commodo metus laoreet ullamcorper. Proin vel nunc a felis sollicitudin pretium. Maecenas in metus at mi mollis posuere. Quisque ac quam sed massa adipiscing rutrum. Vestibulum ipsum. Phasellus porta sapien. Maecenas venenatis tellus vel tellus. Aliquam aliquam dolor at justo. Cum sociis natoque penatibus et magnis dis parturient montes.<!--/lorem--></p>
+	    <a href="#" class="project-link" @click="detailProject('projects-project-2')">More detail...</a>
 	  </div>
 	</div>
       </section>
@@ -93,8 +101,24 @@
 	</form>
       </section>
       <footer>
-      &copy; <span x-text="date" class="date"></span> <span x-text="brand_name" class="brand-name"></span>. All rights reversed.
+	<ul x-data id="social-links">
+	  <li>
+	    <a href="#" target="_blank">
+	      <img src="./img/socials/YouTube.png" alt="YouTube" width="32" height="32"/>
+	    </a>
+	  </li>
+	  <li>
+	    <a href="#" target="_blank">
+	      <img src="./img/socials/Instagram.png" alt="Instagram" width="32" height="32"/>
+	    </a>
+	  </li>
+	</ul>
+	<div>
+	  &copy; <span x-text="date" class="date"></span> <span x-text="brand_name" class="brand-name"></span>. All rights reversed.
+	</div>
       </footer>
     </main>
+    <script type="module" src="./js/app.js" charset="utf-8">
+    </script>
   </body>
 </html>
